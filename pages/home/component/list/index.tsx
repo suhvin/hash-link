@@ -12,21 +12,27 @@ type Props = {
 
 const List = ({ item }: Props) => {
   return (
-    <ListContainer>
-      <img
-        src={"http://www.google.com/s2/favicons?domain=" + item.url + "&sz=64"}
-        alt=""
-        className="favicon"
-      />
-      <div className="divColumn">
-        <div className="divTitle">
-          <p className="title">{item.title}</p>
-          <CloseIcon w="10px" mt="2px" mr="8px" />
-        </div>
-        <Margin h={4} />
-        <TagBox data={item.tag} />
-      </div>
-    </ListContainer>
+    <>
+      {item && item.url && item.title && item.tag && (
+        <ListContainer>
+          <img
+            src={
+              "http://www.google.com/s2/favicons?domain=" + item.url + "&sz=64"
+            }
+            alt=""
+            className="favicon"
+          />
+          <div className="divColumn">
+            <div className="divTitle">
+              <p className="title">{item.title}</p>
+              <CloseIcon w="10px" mt="2px" mr="8px" />
+            </div>
+            <Margin h={4} />
+            <TagBox data={item.tag} />
+          </div>
+        </ListContainer>
+      )}
+    </>
   );
 };
 
