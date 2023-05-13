@@ -7,7 +7,7 @@ type Props = {
   data: LinkType[];
 };
 
-const LinkListBox = ({ data }: Props) => {
+const LinkListBox = ({ data = [] }: Props) => {
   return (
     <LinkListBoxContainer>
       {data.map((item, index) => {

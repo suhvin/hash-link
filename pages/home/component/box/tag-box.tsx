@@ -6,7 +6,7 @@ type Props = {
   data: string[];
 };
 
-const TagBox = ({ data }: Props) => {
+const TagBox = ({ data = [] }: Props) => {
   return (
     <TagBoxContainer>
       {data.map((item, index) => {
