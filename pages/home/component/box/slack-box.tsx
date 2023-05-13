@@ -11,7 +11,7 @@ const SlackBox = () => {
       <div className="slackDiv">
         <div className="marginImg1">
           <Image
-            src="/asset/common/png/logo.png"
+            src="/asset/common/png/btn-slack.png"
             alt=""
             width={190}
             height={110}
