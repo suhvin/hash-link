@@ -7,36 +7,42 @@ import LinkListBox from "./component/box/link-list-box";
 import { LinkType } from "../../firebase/type/link";
 import { getLinkList } from "../api";
 import { LinkCollection } from "@/firebase/collection/link";
+import MainModal from "../component/modal";
 
 type Props = {
   data: LinkType[];
 };
 
 const MainHome = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
     getLinkList("mXjlGHOIDkjz7YMuofHU");
-  }, []);
+  }, [data]);
 
   const getLinkList = async (userId: string) => {
-    console.debug("test");
     const linkList = await LinkCollection.readLinkList(userId);
     setData(linkList);
     return linkList;
   };
 
+  const addLinkData = async (linkData: LinkType) => {
+    LinkCollection.addLink("mXjlGHOIDkjz7YMuofHU", linkData);
+  };
+
   return (
     <HomeContainer>
       <CenterContainer>
-        <Margin h={24} />
-        <div className="marginImg">
+        <Margin h={36} />
+        {/* <div className="marginImg">
           <Image
             src="/asset/common/svg/ic-bars-3.svg"
             alt=""
             width={33}
             height={28}
           />
-        </div>
+        </div> */}
         <Margin h={16} />
         <div style={{ display: "flex", flexDirection: "row" }}>
           <Title>
@@ -60,11 +66,13 @@ const MainHome = () => {
           <Title>
             <span className="bold">MY LINKS</span>
           </Title>
-          <AddBtn>ADD LINK</AddBtn>
+          <AddBtn onClick={() => setIsOpen(true)}>ADD LINK</AddBtn>
         </div>
         <Margin h={30} />
         <LinkListBox data={data} />
+        <Margin h={80} />
       </CenterContainer>
+      <MainModal isOpen={isOpen} setIsOpen={setIsOpen} func={addLinkData} />
     </HomeContainer>
   );
 };
@@ -87,6 +95,7 @@ const HomeContainer = styled.div`
   width: 100%;
   height: 100vh;
   background: #f1f3ff;
+  overflow: scroll;
 `;
 
 const CenterContainer = styled.div`

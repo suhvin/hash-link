@@ -4,31 +4,47 @@ import React from "react";
 
 type Props = {
   item: string;
+  type: "normal" | "delete";
+  checkList?: string[];
+  setCheckList?: (value: string[]) => void;
 };
 
-const Tag = ({ item }: Props) => {
+const Tag = ({ item, type, checkList = [], setCheckList }: Props) => {
   return (
-    <TagContainer>
+    <TagContainer
+      type={type}
+      on={checkList.includes(item)}
+      onClick={() => {
+        if (setCheckList && checkList.includes(item)) {
+          setCheckList(checkList.filter((tag) => tag !== item));
+        } else if (setCheckList) {
+          setCheckList([...checkList, item]);
+        }
+      }}
+    >
       {"#" + item}
-      <CloseIcon w="5px" h="5px" mt="5px" ml="8px" />
+      {type === "delete" && <CloseIcon w="5px" h="5px" mt="5px" ml="8px" />}
     </TagContainer>
   );
 };
 
 export default Tag;
 
-const TagContainer = styled.div`
-  padding: 2px 6px 2px 6px;
-  margin-right: 8px;
-  margin-bottom: 4px;
-  background: #e8ecf9;
+const TagContainer = styled.div<{ type: string; on: boolean }>`
+  padding: ${({ type }) =>
+    type === "delete" ? "2px 6px 2px 6px" : "3px 8px 3px 8px"};
+  margin-right: ${({ type }) => (type === "delete" ? 8 : 8)}px;
+  margin-bottom: ${({ type }) => (type === "delete" ? 4 : 8)}px;
+  background: ${({ type, on }) =>
+    type === "delete" ? "#e8ecf9" : on ? "#BDC7D2" : "white"};
 
   display: flex;
   flex-direction: row;
 
   font-family: Pretendard;
-  font-size: 10px;
+  font-size: ${({ type }) => (type === "delete" ? 10 : 14)}px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 1);
+  color: ${({ type, on }) =>
+    type === "delete" ? "black" : on ? "#2D3748" : "rgba(0,0,0,0.3)"};
   border-radius: 4px;
 `;
