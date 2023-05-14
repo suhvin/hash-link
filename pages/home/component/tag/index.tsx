@@ -91,7 +91,7 @@ const TagContainer = styled.div<{ type: string; on: boolean; isAdd: boolean }>`
   padding: ${({ type }) =>
     type === "delete" ? "2px 6px 2px 6px" : "3px 8px 3px 8px"};
   margin-right: ${({ type }) => (type === "delete" ? 8 : 8)}px;
-  margin-bottom: ${({ type }) => (type === "delete" ? 4 : 8)}px;
+  margin-bottom: ${({ type }) => (type === "delete" ? 8 : 8)}px;
   background: ${({ type, on, isAdd }) =>
     type === "delete"
       ? isAdd
