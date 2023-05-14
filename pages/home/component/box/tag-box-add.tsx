@@ -1,50 +1,48 @@
 import styled from "@emotion/styled";
 import React from "react";
 import Tag from "../tag";
+import TagAdd from "../tag/tag-add";
 
 type Props = {
   data: string[];
+  data2: string[];
   linkId?: string;
-  type: "view" | "add" | "AddModal";
+  type: "AddModal";
   checkList?: string[];
   setCheckList?: (value: string[]) => void;
 };
 
-const TagBox = ({
+const TagBoxAdd = ({
   data = [],
+  data2 = [],
   type,
   checkList = [],
   setCheckList,
   linkId,
 }: Props) => {
   return (
-    <TagBoxContainer type={type}>
-      {(type === "view" ? [...data, "@+add"] : data).map((item, index) => {
+    <TagBoxAddContainer type={type}>
+      {data.map((item, index) => {
         return (
-          <Tag
+          <TagAdd
             key={index}
             item={item}
             data={data}
+            data2={data2}
             linkId={linkId}
-            type={
-              type === "view"
-                ? "delete"
-                : type === "AddModal"
-                ? "AddModal"
-                : "normal"
-            }
+            type={"AddModal"}
             checkList={checkList}
             setCheckList={setCheckList}
           />
         );
       })}
-    </TagBoxContainer>
+    </TagBoxAddContainer>
   );
 };
 
-export default TagBox;
+export default TagBoxAdd;
 
-const TagBoxContainer = styled.div<{ type: string }>`
+const TagBoxAddContainer = styled.div<{ type: string }>`
   width: 100%;
   padding-right: ${({ type }) => (type === "view" ? "20" : "0")}px;
   display: flex;

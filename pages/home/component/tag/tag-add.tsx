@@ -7,44 +7,33 @@ import React, { useState } from "react";
 
 type Props = {
   item: string;
-  type: "normal" | "delete" | "AddModal";
+  type: "AddModal";
   data: string[];
+  data2: string[];
   linkId?: string;
   checkList?: string[];
   setCheckList?: (value: string[]) => void;
 };
 
-const Tag = ({
+const TagAdd = ({
   item,
   type,
   data,
+  data2,
   linkId,
   checkList = [],
   setCheckList,
 }: Props) => {
-  const minusUserLinkTag = async (
-    linkId: string,
-    data: string[],
-    tag: string
-  ) => {
-    await LinkCollection.updateUserLinkTag(
-      "mXjlGHOIDkjz7YMuofHU",
-      linkId,
-      data.filter((tag) => tag !== item)
-    );
-  };
   const plusUserLinkTag = async (
     linkId: string,
-    data: string[],
+    data2: string[],
     tag: string
   ) => {
     await LinkCollection.updateUserLinkTag("mXjlGHOIDkjz7YMuofHU", linkId, [
-      ...data,
+      ...data2,
       tag,
     ]);
   };
-
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <TagContainer
@@ -52,40 +41,15 @@ const Tag = ({
       on={checkList.includes(item)}
       isAdd={item === "@+add"}
       onClick={() => {
-        if (type === "delete") {
-          if (item === "@+add") {
-            setIsOpen(true);
-          } else {
-            minusUserLinkTag(linkId ?? "", data, item);
-          }
-        } else {
-          if (type === "AddModal") {
-            plusUserLinkTag(linkId ?? "", data, item);
-          } else {
-            if (setCheckList && checkList.includes(item)) {
-              setCheckList(checkList.filter((tag) => tag !== item));
-            } else if (setCheckList) {
-              setCheckList([...checkList, item]);
-            }
-          }
-        }
+        plusUserLinkTag(linkId ?? "", data2, item);
       }}
     >
-      {item === "@+add" ? " + " : "#" + item}
-      {type === "delete" && item !== "@+add" && (
-        <CloseIcon w="5px" h="5px" mt="5px" ml="8px" />
-      )}
-      <AddModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        data={data}
-        linkId={linkId}
-      />
+      {"#" + item}
     </TagContainer>
   );
 };
 
-export default Tag;
+export default TagAdd;
 
 const TagContainer = styled.div<{ type: string; on: boolean; isAdd: boolean }>`
   padding: ${({ type }) =>

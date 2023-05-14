@@ -42,7 +42,6 @@ type Props = {
 };
 
 const MainModal = ({ isOpen, setIsOpen, func = () => {} }: Props) => {
-  // 초기값 설정 zustand > localStorage > ""
   const [url, setUrl] = useState("");
   const onChangeUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.currentTarget.value);

@@ -42,7 +42,7 @@ const List = ({ item }: Props) => {
               />
             </div>
             <Margin h={4} />
-            <TagBox data={item.tag} type="view" />
+            <TagBox data={item.tag} linkId={item.id} type="view" />
           </div>
         </ListContainer>
       )}

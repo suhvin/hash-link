@@ -8,6 +8,7 @@ import { LinkType } from "../../firebase/type/link";
 import { getLinkList } from "../api";
 import { LinkCollection } from "@/firebase/collection/link";
 import MainModal from "../component/modal";
+import MakeModal from "../component/modal/make-modal";
 
 type Props = {
   data: LinkType[];
@@ -15,6 +16,7 @@ type Props = {
 
 const MainHome = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenTag, setIsOpenTag] = useState(false);
 
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
@@ -66,13 +68,17 @@ const MainHome = () => {
           <Title>
             <span className="bold">MY LINKS</span>
           </Title>
-          <AddBtn onClick={() => setIsOpen(true)}>ADD LINK</AddBtn>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <MakeBtn onClick={() => setIsOpenTag(true)}>Make Tag</MakeBtn>
+            <AddBtn onClick={() => setIsOpen(true)}>ADD LINK</AddBtn>
+          </div>
         </div>
         <Margin h={30} />
         <LinkListBox data={data} />
         <Margin h={80} />
       </CenterContainer>
       <MainModal isOpen={isOpen} setIsOpen={setIsOpen} func={addLinkData} />
+      <MakeModal isOpen={isOpenTag} setIsOpen={setIsOpenTag} />
     </HomeContainer>
   );
 };
@@ -127,6 +133,22 @@ const AddBtn = styled.button`
   height: 25px;
   border-radius: 4px;
   margin-top: 2px;
+  background: #de0a0a;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+  color: #ffffff;
+`;
+
+const MakeBtn = styled.button`
+  width: 60px;
+  height: 25px;
+  border-radius: 4px;
+  margin-top: 2px;
+  margin-right: 8px;
   background: #de0a0a;
   font-family: "Pretendard";
   font-style: normal;
