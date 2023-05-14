@@ -69,7 +69,9 @@ const MakeModal = ({ isOpen, setIsOpen }: Props) => {
               onClick={() => {
                 makeTag("mXjlGHOIDkjz7YMuofHU");
                 setIsOpen(false);
-                window.location.reload();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500);
               }}
             >
               Make Tag
